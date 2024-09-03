@@ -1,6 +1,6 @@
 class ATM:
     def __init__(self, balance=0):
-        self._balance = balance  # Private attribute
+        self._balance = balance  
 
     def deposit(self, amount):
         if amount > 0:
@@ -21,10 +21,7 @@ class ATM:
     def check_balance(self):
         print(f"Your current balance is {self._balance}.")
 
-# Creating an ATM object
 atm = ATM()
-
-# Simulating user interaction
 atm.deposit(500)
 atm.withdraw(200)
 atm.check_balance()
