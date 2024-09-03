@@ -19,7 +19,7 @@ class Account:
     def get_balance(self):  # Accessor method
         return self._balance
 
-    def __del__(self):  # Destructor
+    def __del__(self): 
         print(f"Account {self._account_number} is closed.")
 
 # Derived class - SavingsAccount (Inheritance)
