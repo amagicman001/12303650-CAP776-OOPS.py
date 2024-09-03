@@ -2,7 +2,7 @@ class Eggrecipe:
     def __init__(self,name):
         self.name = name          
         self.ingredients = []     
-        self.steps = []          
+        self.steps =[]     
 
     def addingredient(self,ingredient):
         self.ingredients.append(ingredient)
