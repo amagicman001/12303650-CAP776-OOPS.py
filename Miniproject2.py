@@ -4,7 +4,6 @@ import hashlib
 import requests
 from datetime import datetime
 
-# Define local file paths
 REGNO_FILE_PATH = 'regno.csv'
 USER_ACTIVITY_LOG_PATH = 'user_activity_log.csv'
 
@@ -27,7 +26,7 @@ def signup(email, password, security_question, correct_answer):
         writer = csv.writer(file)
         writer.writerow([email, hashed_password, security_question, correct_answer])
     print("Signup successful! Please log in.")
-    main()  # Restart the application for login
+    main()
 
 def login(email=None):
     login_attempts = 0
@@ -43,7 +42,7 @@ def login(email=None):
                 for row in reader:
                     if row[0] == email and row[1] == hashed_password:
                         print("Login successful!")
-                        search_news(email)  # Proceed to news search, pass email for logging
+                        search_news(email)
                         return
             print("Invalid email or password.")
         except FileNotFoundError:
@@ -102,18 +101,13 @@ def search_news(email):
     keyword = input("Enter a keyword for news: ")
     url = f"https://newsapi.org/v2/everything?q={keyword}&apiKey=e4853dd9d7214272af5f2038635d0b67"
     response = requests.get(url)
-
-    # Parse the JSON response
     data = response.json()
 
-    # Extract and display the articles
     if 'articles' in data:
-        for i, article in enumerate(data['articles'][:5], start=1):  # Limit to top 5 articles
+        for i, article in enumerate(data['articles'][:5], start=1):
             print(f"{i}. {article['title']}")
             print(f"   Source: {article['source']['name']}")
             print(f"   Link: {article['url']}\n")
-
-            # Log user visit with current date, time, and email
             log_activity(email, keyword, article)
 
         while True:
@@ -121,7 +115,6 @@ def search_news(email):
             if article_num.lower() == 'exit':
                 break
 
-            # Validate user input
             if article_num.isdigit() and 1 <= int(article_num) <= 5:
                 selected_article = data['articles'][int(article_num) - 1]
                 print(f"Visited: {selected_article['url']}\n")
@@ -185,3 +178,12 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# Since, i have made this project in pythom due to multiple library issues that i was facing in jupyter and vscode
+# In collab both my csv files are created in collab virtual environment. 
+# In order to download and check them in your local use this snippet: 
+
+# from google.colab import files
+# files.download('regno.csv')
+# files.download('user_activity_log.csv')
